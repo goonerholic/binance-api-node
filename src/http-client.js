@@ -4,7 +4,7 @@ import zip from 'lodash.zipobject'
 import 'isomorphic-fetch'
 
 const BASE = 'https://api.binance.com'
-const FUTURES = 'https://fapi.binance.com'
+const FUTURES = 'https://dapi.binance.com'
 
 const defaultGetTime = () => Date.now()
 
@@ -404,20 +404,20 @@ export default opts => {
     futuresFundingRate: payload =>
       checkParams('fundingRate', payload, ['symbol']) && pubCall('/fapi/v1/fundingRate', payload),
 
-    futuresOrder: payload => order(privCall, payload, '/fapi/v1/order'),
-    futuresGetOrder: payload => privCall('/fapi/v1/order', payload),
-    futuresCancelOrder: payload => privCall('/fapi/v1/order', payload, 'DELETE'),
-    futuresOpenOrders: payload => privCall('/fapi/v1/openOrders', payload),
-    futuresAllOrders: payload => privCall('/fapi/v1/allOrders', payload),
-    futuresPositionRisk: payload => privCall('/fapi/v2/positionRisk', payload),
-    futuresAccountBalance: payload => privCall('/fapi/v2/balance', payload),
-    futuresUserTrades: payload => privCall('/fapi/v1/userTrades', payload),
-    futuresPositionMode: payload => privCall('/fapi/v1/positionSide/dual', payload),
-    futuresPositionModeChange: payload => privCall('/fapi/v1/positionSide/dual', payload, 'POST'),
-    futuresLeverage: payload => privCall('/fapi/v1/leverage', payload, 'POST'),
-    futuresMarginType: payload => privCall('/fapi/v1/marginType', payload, 'POST'),
-    futuresPositionMargin: payload => privCall('/fapi/v1/positionMargin', payload, 'POST'),
-    futuresMarginHistory: payload => privCall('/fapi/v1/positionMargin/history', payload),
-    futuresIncome: payload => privCall('/fapi/v1/income', payload),
+    futuresOrder: payload => order(privCall, payload, '/dapi/v1/order'),
+    futuresGetOrder: payload => privCall('/dapi/v1/order', payload),
+    futuresCancelOrder: payload => privCall('/dapi/v1/order', payload, 'DELETE'),
+    futuresOpenOrders: payload => privCall('/dapi/v1/openOrders', payload),
+    futuresAllOrders: payload => privCall('/dapi/v1/allOrders', payload),
+    futuresPositionRisk: payload => privCall('/dapi/v2/positionRisk', payload),
+    futuresAccountBalance: payload => privCall('/dapi/v2/balance', payload),
+    futuresUserTrades: payload => privCall('/dapi/v1/userTrades', payload),
+    futuresPositionMode: payload => privCall('/dapi/v1/positionSide/dual', payload),
+    futuresPositionModeChange: payload => privCall('/dapi/v1/positionSide/dual', payload, 'POST'),
+    futuresLeverage: payload => privCall('/dapi/v1/leverage', payload, 'POST'),
+    futuresMarginType: payload => privCall('/dapi/v1/marginType', payload, 'POST'),
+    futuresPositionMargin: payload => privCall('/dapi/v1/positionMargin', payload, 'POST'),
+    futuresMarginHistory: payload => privCall('/dapi/v1/positionMargin/history', payload),
+    futuresIncome: payload => privCall('/dapi/v1/income', payload),
   }
 }

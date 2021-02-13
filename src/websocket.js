@@ -5,7 +5,7 @@ import openWebSocket from 'open-websocket'
 
 const endpoints = {
   base: 'wss://stream.binance.com:9443/ws',
-  futures: 'wss://fstream.binance.com/ws',
+  futures: 'wss://dstream.binance.com/ws',
 }
 
 const depthTransform = m => ({
