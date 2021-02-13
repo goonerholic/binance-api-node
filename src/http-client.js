@@ -114,7 +114,7 @@ const checkParams = (name, payload, requires = []) => {
 const publicCall = ({ endpoints }) => (path, data, method = 'GET', headers = {}) =>
   sendResult(
     fetch(
-      `${!path.includes('/fapi') ? endpoints.base : endpoints.futures}${path}${makeQueryString(
+      `${!path.includes('/dapi') ? endpoints.base : endpoints.futures}${path}${makeQueryString(
         data,
       )}`,
       {
@@ -180,7 +180,7 @@ const privateCall = ({ apiKey, apiSecret, endpoints, getTime = defaultGetTime, p
 
     return sendResult(
       fetch(
-        `${!path.includes('/fapi') ? endpoints.base : endpoints.futures}${path}${
+        `${!path.includes('/dapi') ? endpoints.base : endpoints.futures}${path}${
           noData ? '' : makeQueryString(newData)
         }`,
         {
@@ -363,10 +363,10 @@ export default opts => {
     marginCloseDataStream: payload =>
       privCall('/sapi/v1/userDataStream', payload, 'DELETE', false, true),
 
-    futuresGetDataStream: () => privCall('/fapi/v1/listenKey', null, 'POST', true),
-    futuresKeepDataStream: payload => privCall('/fapi/v1/listenKey', payload, 'PUT', false, true),
+    futuresGetDataStream: () => privCall('/dapi/v1/listenKey', null, 'POST', true),
+    futuresKeepDataStream: payload => privCall('/dapi/v1/listenKey', payload, 'PUT', false, true),
     futuresCloseDataStream: payload =>
-      privCall('/fapi/v1/listenKey', payload, 'DELETE', false, true),
+      privCall('/dapi/v1/listenKey', payload, 'DELETE', false, true),
 
     marginAllOrders: payload => privCall('/sapi/v1/margin/allOrders', payload),
     marginOrder: payload => order(privCall, payload, '/sapi/v1/margin/order'),
@@ -382,27 +382,27 @@ export default opts => {
     marginIsolatedTransfer: payload => privCall('/sapi/v1/margin/isolated/transfer', payload, 'POST'),
     marginIsolatedTransferHistory: payload => privCall('/sapi/v1/margin/isolated/transfer', payload),
 
-    futuresPing: () => pubCall('/fapi/v1/ping').then(() => true),
-    futuresTime: () => pubCall('/fapi/v1/time').then(r => r.serverTime),
-    futuresExchangeInfo: () => pubCall('/fapi/v1/exchangeInfo'),
-    futuresBook: payload => book(pubCall, payload, '/fapi/v1/depth'),
-    futuresAggTrades: payload => aggTrades(pubCall, payload, '/fapi/v1/aggTrades'),
-    futuresMarkPrice: payload => pubCall('/fapi/v1/premiumIndex', payload),
-    futuresAllForceOrders: payload => pubCall('/fapi/v1/allForceOrders', payload),
-    futuresCandles: payload => candles(pubCall, payload, '/fapi/v1/klines'),
+    futuresPing: () => pubCall('/dapi/v1/ping').then(() => true),
+    futuresTime: () => pubCall('/dapi/v1/time').then(r => r.serverTime),
+    futuresExchangeInfo: () => pubCall('/dapi/v1/exchangeInfo'),
+    futuresBook: payload => book(pubCall, payload, '/dapi/v1/depth'),
+    futuresAggTrades: payload => aggTrades(pubCall, payload, '/dapi/v1/aggTrades'),
+    futuresMarkPrice: payload => pubCall('/dapi/v1/premiumIndex', payload),
+    futuresAllForceOrders: payload => pubCall('/dapi/v1/allForceOrders', payload),
+    futuresCandles: payload => candles(pubCall, payload, '/dapi/v1/klines'),
     futuresTrades: payload =>
-      checkParams('trades', payload, ['symbol']) && pubCall('/fapi/v1/trades', payload),
-    futuresDailyStats: payload => pubCall('/fapi/v1/ticker/24hr', payload),
+      checkParams('trades', payload, ['symbol']) && pubCall('/dapi/v1/trades', payload),
+    futuresDailyStats: payload => pubCall('/dapi/v1/ticker/24hr', payload),
     futuresPrices: () =>
-      pubCall('/fapi/v1/ticker/price').then(r =>
+      pubCall('/dapi/v1/ticker/price').then(r =>
         (Array.isArray(r) ? r : [r]).reduce((out, cur) => ((out[cur.symbol] = cur.price), out), {}),
       ),
     futuresAllBookTickers: () =>
-      pubCall('/fapi/v1/ticker/bookTicker').then(r =>
+      pubCall('/dapi/v1/ticker/bookTicker').then(r =>
         (Array.isArray(r) ? r : [r]).reduce((out, cur) => ((out[cur.symbol] = cur), out), {}),
       ),
     futuresFundingRate: payload =>
-      checkParams('fundingRate', payload, ['symbol']) && pubCall('/fapi/v1/fundingRate', payload),
+      checkParams('fundingRate', payload, ['symbol']) && pubCall('/dapi/v1/fundingRate', payload),
 
     futuresOrder: payload => order(privCall, payload, '/dapi/v1/order'),
     futuresGetOrder: payload => privCall('/dapi/v1/order', payload),
