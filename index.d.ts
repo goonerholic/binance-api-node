@@ -575,6 +575,7 @@ declare module 'binance-api-node' {
     isIsolated?: boolean
     quoteOrderQty?: string
     sideEffectType?: SideEffectType
+    reduceOnly?: string
   }
 
   export interface NewOcoOrder {
@@ -657,6 +658,7 @@ declare module 'binance-api-node' {
     | 'STOP_LOSS_LIMIT'
     | 'TAKE_PROFIT'
     | 'TAKE_PROFIT_LIMIT'
+    | 'STOP_MARKET'
 
   export type ListOrderStatus = 'EXECUTING' | 'ALL_DONE' | 'REJECT'
 
