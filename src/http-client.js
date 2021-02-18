@@ -176,7 +176,7 @@ const privateCall = ({ apiKey, apiSecret, endpoints, getTime = defaultGetTime, p
       .update(makeQueryString({ ...data, timestamp }).substr(1))
       .digest('hex')
 
-    const newData = noExtra ? data : { ...data, timestamp, signature }
+    const newData = noExtra ? data : { ...data, timestamp, signature, recvWindow: 10000 }
 
     return sendResult(
       fetch(
