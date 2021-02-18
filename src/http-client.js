@@ -173,7 +173,7 @@ const privateCall = ({ apiKey, apiSecret, endpoints, getTime = defaultGetTime, p
 
     const signature = crypto
       .createHmac('sha256', apiSecret)
-      .update(makeQueryString({ ...data, timestamp, recvWindow: 10000 }).substr(1))
+      .update(makeQueryString({ ...data, timestamp }).substr(1))
       .digest('hex')
 
     const newData = noExtra ? data : { ...data, timestamp, signature }
